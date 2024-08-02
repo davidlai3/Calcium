@@ -55,43 +55,41 @@ export const DocumentList = ({
 
 
 	return (
-		<div>
-			<>
-				<p
-				style={{
-					paddingLeft: level ? `${(level*12) + 25}px` : 12 
-				}}
-				className={cn(
-					"hidden text-sm font-medium text-muted-foreground/80", 
-					expanded && "last:block",
-					level === 0 && "hidden"
-				)}
-				>
-					No pages inside
-				</p>
-				{documents.map((document) => (
-					<div key = {document._id}>
-						<Item
-							id={document._id}
-							onClick={() => onRedirect(document._id)}
-							label={document.title}
-							icon={FileIcon}
-							documentIcon={document.icon}
-							active={params.documentsId === document._id}
-							level={level}
-							onExpand={() => onExpand(document._id)}
-							expanded={expanded[document._id]}
+		<>
+			<p
+			className={cn(
+				"hidden text-sm font-medium text-muted-foreground/80", 
+				expanded && "last:block",
+				level === 0 && "hidden"
+			)}
+			style={{
+				paddingLeft: level ? `${(level*12) + 25}px` : undefined
+			}}
+			>
+				No pages inside
+			</p>
+			{documents.map((document) => (
+				<div key = {document._id}>
+					<Item
+						id={document._id}
+						onClick={() => onRedirect(document._id)}
+						label={document.title}
+						icon={FileIcon}
+						documentIcon={document.icon}
+						active={params.documentId === document._id}
+						level={level}
+						onExpand={() => onExpand(document._id)}
+						expanded={expanded[document._id]}
+					/>
+					{expanded[document._id] && (
+						<DocumentList
+							parentDocumentId={document._id}
+							level={level+1}
 						/>
-						{expanded[document._id] && (
-							<DocumentList
-								parentDocumentId={document._id}
-								level={level+1}
-							/>
-						)}
-					</div>
+					)}
+				</div>
 
-				))}
-			</>
-		</div>
+			))}
+		</>
 	)
 }
