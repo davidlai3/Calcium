@@ -3,7 +3,7 @@
 import { ChevronsLeft, Plus, PlusCircle, Search, Settings, Trash } from "lucide-react";
 import { ElementRef, useEffect, useRef, useState } from "react"
 import { useMediaQuery } from "usehooks-ts";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { MenuIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { UserItem } from "./user-item";
@@ -25,6 +25,7 @@ export const Navigation = () => {
 	const pathname = usePathname();
 	const isMobile = useMediaQuery("(max-width: 768px)")
 	const create = useMutation(api.documents.create)
+	const router = useRouter();
 
 	// NAVBAR FUNCTIONS BEGIN
 
@@ -108,6 +109,7 @@ export const Navigation = () => {
 	
 	const handleCreate = () => {
 		const promise = create({ title: "Untitled" })
+			.then((documentId) => router.push(`/documents/${documentId}`))
 
 		toast.promise(promise, {
 			loading: "Creating a new note...",

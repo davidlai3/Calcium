@@ -1,16 +1,17 @@
 "use client"
 
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { ImageIcon, X } from "lucide-react";
-import { useCoverImage } from "@/hooks/use-cover-image";
 import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
+import { Skeleton } from "./ui/skeleton";
+
+import { cn } from "@/lib/utils";
+import { useCoverImage } from "@/hooks/use-cover-image";
+import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useEdgeStore } from "@/lib/edgestore";
-import { Skeleton } from "./ui/skeleton";
 
 interface CoverImageProps {
 	url?: string;
@@ -32,10 +33,10 @@ export const Cover = ({
 			await edgestore.publicFiles.delete({
 				url: url
 			})
-			removeCoverImage({
-				id: params.documentId as Id<"documents">
-			});
 		}
+		removeCoverImage({
+			id: params.documentId as Id<"documents">
+		});
 	}
 
 	return (
