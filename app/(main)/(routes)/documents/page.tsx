@@ -9,7 +9,7 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 
-const documentsPage = () => {
+const DocumentsPage = () => {
 	const { user } = useUser();
 	const create = useMutation(api.documents.create);
 	const router = useRouter();
@@ -53,4 +53,4 @@ const documentsPage = () => {
 	);
 }
 
-export default documentsPage;
+export default DocumentsPage;
